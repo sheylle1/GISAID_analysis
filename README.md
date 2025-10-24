@@ -40,50 +40,61 @@ The script expects a folder containing subdirectories for each sample, with:
 
 Alignment FASTA files
 
-## Outputs 
+## 🧾 Outputs
 
-The pipeline generates:
+The pipeline generates the following structure and files:
 
-Directory Structure
-text
+### 📂 Directory Structure
+```text
 project/
 ├── GD_Assignments/          # Temporary JSON files
 ├── Outputs/                 # Final FASTA files
-│   └── {LimsID}/           # Per-sample folders
+│   └── {LimsID}/            # Per-sample folders
 ├── Summary_files/           # CSV reports
-└── viral_analysis.log      # Processing log
+└── viral_analysis.log       # Processing log
+```
 
 ## Report Files
-gisaid_submission_status_{virus}.csv: GISAID eligibility summary
 
-influenza_{type}_segments.csv: Detailed segment information (influenza only)
-
-full_genome_info_{virus}.csv: Complete genome metrics
+| File | Description |
+|------|-------------|
+| `gisaid_submission_status_{virus}.csv` | GISAID eligibility summary |
+| `influenza_{type}_segments.csv` | Detailed segment information (Influenza only) |
+| `full_genome_info_{virus}.csv` | Complete genome metrics |
 
 ## FASTA Files
-Individual segment files (influenza)
 
-Concatenated genome files
-
-Custom headers with lab/sample information
+- Individual segment files (for influenza)
+- Concatenated genome files  
+- Custom FASTA headers include lab and sample information
 
 ## Configuration
 
-### Coverage Thresholds
-- Minimum depth of coverage (default: 10x)
-- Minimum genome coverage percentage (default: 80%)
+**Coverage Thresholds**
+- Minimum depth of coverage: 10x (default)
+- Minimum genome coverage percentage: 80% (default)
 
-### Virus Configuration
-Easily extendable in VIRUS_CONFIG dictionary for new viruses.
+**Virus Configuration**
+- Easily extendable in the `VIRUS_CONFIG` dictionary to support new viruses
 
 ## Requirements
-Python 3.9+
-See requirements.txt for dependencies
+
+- Python 3.9+
+- See `requirements.txt` for full dependency list
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (git checkout -b feature/amazing-feature)
-3. Commit your changes (git commit -m 'Add amazing feature')
-4. Push to the branch (git push origin feature/amazing-feature)
-4. Open a Pull Request
+2. Create your feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+6. 
