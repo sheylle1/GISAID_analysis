@@ -40,11 +40,11 @@ The script expects a folder containing subdirectories for each sample, with:
 
 Alignment FASTA files
 
-## 🧾 Outputs
+## Outputs
 
 The pipeline generates the following structure and files:
 
-### 📂 Directory Structure
+### Directory Structure
 ```text
 project/
 ├── GD_Assignments/          # Temporary JSON files
