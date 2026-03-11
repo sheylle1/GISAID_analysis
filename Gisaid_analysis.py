@@ -87,7 +87,7 @@ logging.basicConfig(
 )
 
 def extract_unique_id(sample_id):
-    """
+    """...
     Extract the true unique ID from a sample identifier.
     The unique ID is always a C0XXXX or K0XXXX pattern (C or K followed by numbers).
     
@@ -112,7 +112,7 @@ def extract_unique_id(sample_id):
     return sample_id
 
 def normalize_limsid(raw_id):
-    """
+    """--,
     Normalize a raw LIMS ID by removing suffixes for non-control samples.
     
     Parameters:
@@ -135,7 +135,9 @@ def normalize_limsid(raw_id):
     return unique_id
 
 def create_temp_folder(input_folder):
-    """Create temporary folder and copy assignment files."""
+    """...
+    Create temporary folder and copy assignment files.
+    """
     temp_folder = os.path.join(os.getcwd(), 'GD_Assignments')
     os.makedirs(temp_folder, exist_ok=True)
     logging.info(f"Created temp folder: {temp_folder}")
@@ -170,7 +172,7 @@ def create_temp_folder(input_folder):
     return temp_folder
 
 def get_virus_type():
-    """
+    """--,
     Prompt the user to select the virus type from a predefined list.
     
     Returns:
@@ -198,7 +200,7 @@ def get_virus_type():
     return virus_key.upper(), virus_key
 
 def get_influenza_type():
-    """
+    """...
     Prompt the user to select which type of influenza virus samples are being analyzed.
 
     Returns:
@@ -218,7 +220,7 @@ def get_influenza_type():
     return choice
 
 def get_coverage_thresholds():
-    """
+    """--,
     Prompt the user to define quality thresholds for GISAID submission.
 
     Returns:
@@ -238,7 +240,7 @@ def get_coverage_thresholds():
     return min_depth, min_cov
 
 def extract_segment_number_and_gene(segment_str):
-    """
+    """--,
     Extract segment number and gene name from segment string.
     Handles both old format ("segment X-NAME") and new format ("X-NAME").
     
@@ -264,7 +266,7 @@ def extract_segment_number_and_gene(segment_str):
     return None, None
 
 def parse_json_file(json_file, virus_type, virus_key, min_depth, min_cov):
-    """
+    """...
     Parse a Genome Detective JSON `.assignments.json` file and extract viral information.
     Handles both old and new JSON formats.
     """
@@ -403,7 +405,7 @@ def parse_json_file(json_file, virus_type, virus_key, min_depth, min_cov):
         return None
 
 def evaluate_segment(regions, segment_num, virus_type, min_depth, min_cov):
-    """
+    """--,
     Evaluate whether a specific viral genome segment passes defined quality thresholds.
     Handles both old and new segment naming formats.
     """
@@ -423,7 +425,7 @@ def evaluate_segment(regions, segment_num, virus_type, min_depth, min_cov):
     return "Not found"
 
 def sort_segment_key(region):
-    """
+    """...
     Extract the numeric segment identifier from a region for sorting purposes.
     Handles both old and new formats.
     """
@@ -434,7 +436,7 @@ def sort_segment_key(region):
     return segment_num if segment_num is not None else 999
 
 def process_influenza_files(temp_folder, influenza_type, min_depth, min_cov):
-    """
+    """--,
     Process Genome Detective assignment JSON files for influenza samples.
     Handles both old and new JSON formats.
     """
@@ -511,7 +513,7 @@ def process_influenza_files(temp_folder, influenza_type, min_depth, min_cov):
     return pd.DataFrame(segment_table_rows), pd.DataFrame(gisaid_table_rows)
 
 def process_non_segmented_virus(temp_folder, virus_key, min_depth, min_cov):
-    """
+    """...
     Process Genome Detective assignment JSON files for non-segmented viruses.
     Handles both old and new JSON formats.
     """
@@ -547,7 +549,7 @@ def process_non_segmented_virus(temp_folder, virus_key, min_depth, min_cov):
     return pd.DataFrame(gisaid_table_rows)
 
 def extract_genome_info(temp_folder, virus_type, virus_key):
-    """
+    """--,
     Extract full-genome summary information for each strain from JSON assignment files.
     Handles both old and new JSON formats.
     """
@@ -618,7 +620,7 @@ def extract_genome_info(temp_folder, virus_type, virus_key):
     return pd.DataFrame(full_genome_data)
 
 def prompt_for_multiple_labs():
-    """
+    """...
     Prompt the user to indicate whether the dataset contains samples from multiple labs.
     """
     print("\nAre the samples from multiple labs?")
@@ -629,7 +631,7 @@ def prompt_for_multiple_labs():
     return choice == 'y'
 
 def get_lab_info(multiple_labs, all_lims_ids):
-    """
+    """--,
     Collect lab assignment information for each sample.
     """
     lab_info = {}
@@ -735,7 +737,7 @@ def get_lab_info(multiple_labs, all_lims_ids):
     return lab_info
 
 def prompt_user_for_header_format(virus_type, virus_key, all_lims_ids, lab_info=None):
-    """
+    """...
     Prompt the user to confirm or customize the FASTA header format.
     """
     if lab_info is None:
@@ -748,7 +750,7 @@ def prompt_user_for_header_format(virus_type, virus_key, all_lims_ids, lab_info=
         else:
             default_header = f">{virus_type}/South Africa/<lab>-CERI-<LimsID>/2026_<gene>"
     elif virus_key == 'rsv':
-        default_header = f">h{VIRUS_CONFIG[virus_key]['common_name']}/A/South Africa/<lab>-CERI-<LimsID>/2026"
+        default_header = f">h{VIRUS_CONFIG[virus_key]['common_name']}/<subtype>/South Africa/<lab>-CERI-<LimsID>/2026"
     else:
         default_header = f">{VIRUS_CONFIG[virus_key]['common_name']}/South Africa/<lab>-CERI-<LimsID>/2026"
 
@@ -765,7 +767,7 @@ def prompt_user_for_header_format(virus_type, virus_key, all_lims_ids, lab_info=
         return default_header, lab_info
 
 def get_lab_for_limsid(limsid, lab_info):
-    """
+    """--,
     Retrieve the lab name corresponding to a specific LIMS ID.
     """
     if len(lab_info) == 1:
@@ -778,7 +780,7 @@ def get_lab_for_limsid(limsid, lab_info):
     return "UNKNOWN"
 
 def get_segment_number_and_gene(header_line, virus_name, virus_type):
-    """
+    """...
     Extract segment number and corresponding gene name from a segment label.
     """
     try:
@@ -803,7 +805,7 @@ def get_segment_number_and_gene(header_line, virus_name, virus_type):
     return None, None
 
 def find_sample_folder(input_folder, limsid):
-    """
+    """--,
     Find the sample folder that contains the given LIMS ID.
     Uses the unique C0/K0 ID to match folders that may have prefixes/suffixes.
     """
@@ -825,7 +827,7 @@ def find_sample_folder(input_folder, limsid):
     return None
 
 def find_alignment_file(sample_folder, ref_id):
-    """
+    """...
     Find alignment file in sample folder that matches the reference ID.
     Handles various filename patterns.
     """
@@ -849,7 +851,7 @@ def find_alignment_file(sample_folder, ref_id):
     return None
 
 def write_segment_fastas(input_folder, segment_df, gisaid_df, virus_type):
-    """
+    """--,
     Write individual FASTA files for each segment of influenza virus samples that passed GISAID thresholds.
     """
     eligible = gisaid_df[gisaid_df['Submit to GISAID'] == 'Yes']
@@ -956,22 +958,32 @@ def write_segment_fastas(input_folder, segment_df, gisaid_df, virus_type):
                     logging.debug(f"No alignment file found for reference ID {ref_id} in {sample_input_folder}")
 
 def write_virus_fastas(input_folder, df, virus_key, lab_info):
-    """
+    """...
     Write FASTA files for non-segmented virus samples that passed GISAID criteria.
+    For RSV, extracts subtype from the original alignment file header.
     """
     temp_folder = os.path.join(os.getcwd(), 'Outputs')
     os.makedirs(temp_folder, exist_ok=True)
 
-    print(f"\nDefault header format for {VIRUS_CONFIG[virus_key]['name']}:")
     if virus_key == "rsv":
-        default_header = f">h{VIRUS_CONFIG[virus_key]['common_name']}/A/South Africa/<lab>-CERI-<LimsID>/2026"
+        print(f"\nRSV subtype detection:")
+        print("Subtype will be extracted from the original alignment file headers (e.g., Subgroup_B)")
+        
+        # We'll need to ask for header format after determining subtype
+        # But for now, just show that subtype will be auto-detected
+        default_header = f">h{VIRUS_CONFIG[virus_key]['common_name']}/<subtype>/South Africa/<lab>-CERI-<LimsID>/2026"
+        print(f"Default header format: {default_header}")
     else:
-         default_header = f">{VIRUS_CONFIG[virus_key]['common_name']}/South Africa/<lab>-CERI-<LimsID>/2026"   
-    print(default_header)
+        print(f"\nDefault header format for {VIRUS_CONFIG[virus_key]['name']}:")
+        default_header = f">{VIRUS_CONFIG[virus_key]['common_name']}/South Africa/<lab>-CERI-<LimsID>/2026"
+        print(default_header)
 
     confirm = input("Use this format? (y/n): ").lower()
     if confirm != 'y':
-        header_template = input("Enter custom format using <LimsID> and <lab>: ")
+        if virus_key == "rsv":
+            header_template = input("Enter custom format using <LimsID>, <lab>, and <subtype>: ")
+        else:
+            header_template = input("Enter custom format using <LimsID> and <lab>: ")
     else:
         header_template = default_header
 
@@ -1021,12 +1033,33 @@ def write_virus_fastas(input_folder, df, virus_key, lab_info):
                 sequence = ''.join(lines[headers[1] + 1:])
 
                 lab_name = get_lab_for_limsid(limsid, lab_info)
-                new_header = header_template\
-                    .replace('<LimsID>', unique_id)\
-                    .replace('<lab>', lab_name)
+                subtype = "Unknown"  # Default value
+                if virus_key == "rsv" and headers:
+                    first_header = lines[headers[0]]  # Get the first header line
+                    
+                    # Look for Subgroup_B pattern
+                    subgroup_match = re.search(r'Subgroup', first_header)
+                    if subgroup_match:
+                        subtype = 'B'
+                        logging.info(f"Extracted subtype {subtype} for sample {unique_id} from header: {first_header[:100]}...")
+                    else:
+                        subtype = 'A'
+                        logging.warning(f" Sample {unique_id}, is assigned RSV-A, as their is no Subgroup B")
+
+                
+                # Build the header with appropriate replacements
+                if virus_key == "rsv":
+                    new_header = header_template\
+                        .replace('<LimsID>', unique_id)\
+                        .replace('<lab>', lab_name)\
+                        .replace('<subtype>', subtype)
+                else:
+                    new_header = header_template\
+                        .replace('<LimsID>', unique_id)\
+                        .replace('<lab>', lab_name)
 
                 dst_file = os.path.join(sample_folder, f"{unique_id}_{virus_key}.fasta")
-                
+
                 # Check if file already exists
                 if os.path.exists(dst_file):
                     logging.debug(f"File already exists, skipping: {dst_file}")
@@ -1043,7 +1076,7 @@ def write_virus_fastas(input_folder, df, virus_key, lab_info):
             logging.debug(f"No alignment file found for reference ID {ref_id} in {sample_input_folder}")
 
 def concatenate_segments_per_sample(virus_type):
-    """
+    """--,
     Concatenate individual influenza segment FASTA files per sample into one multi-segment file.
     """
     temp2_folder = os.path.join(os.getcwd(), 'Outputs')
@@ -1122,7 +1155,7 @@ def concatenate_segments_per_sample(virus_type):
                 logging.info(f"Concatenated segments for sample {unique_id} into {concatenated_fasta}")
 
 def concatenate_all_samples_fasta(virus_type, virus_key, output_filename_prefix="all_samples_combined"):
-    """
+    """...
     Concatenate all per-sample full-genome FASTA files into a single master file.
     """
     temp2_folder = os.path.join(os.getcwd(), 'Outputs')
@@ -1198,7 +1231,7 @@ def concatenate_all_samples_fasta(virus_type, virus_key, output_filename_prefix=
         logging.info(f"Combined fasta for all samples written to {combined_fasta_path}")
 
 def main(input_folder):
-    """
+    """--,
     Main entry point for the viral analysis pipeline.
     """
     logging.info("Starting analysis")

@@ -171,6 +171,7 @@ project/
 
 ### Non-segmented viruses
 - Single FASTA per sample
+- RSV identifies the Subtype: A or B (NEW!!) 
 - Combined FASTA dataset
 
 Headers can be customized using placeholders:
@@ -180,6 +181,7 @@ Headers can be customized using placeholders:
 <gene>
 <lab>
 <isolate>
+<subtype>
 ```
 
 Example header:
